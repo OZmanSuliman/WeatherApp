@@ -1,4 +1,4 @@
-name: Dev
+name: ios
 
 on:
   push:
