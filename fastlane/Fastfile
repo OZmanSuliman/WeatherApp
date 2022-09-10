@@ -1,0 +1,46 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+before_all do
+  update_fastlane
+#  xcversion(version: "13.2.1")
+end
+
+platform :ios do
+  desc "Dev lane just builds the app without archive"
+  lane :dev do
+   
+    
+    build_app(scheme: "WeatherApp-Dev",skip_archive: true,export_method: "development",destination: "name=iPhone 13,OS=15.2")
+
+  end
+
+  lane :staging do
+        
+build_app(scheme: "WeatherApp-Staging",skip_archive: true,export_method: "development",destination: "name=iPhone 12,OS=15.2")
+
+#upload to TestFlight or any alternative platform
+
+  end
+
+  lane :release do
+build_app(scheme: "WeatherApp",clean: "true",include_bitcode: "true",skip_archive: false,export_method: "development",destination: "name=iPhone 12,OS=15.2",export_method: "app-store")
+#upload to App Store
+
+  end
+  
+end

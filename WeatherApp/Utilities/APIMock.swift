@@ -13,7 +13,7 @@ import StreamReader
 
 class ApiManagerMock: ApiManagerProtocol {
     private let decoder = JSONDecoder()
-
+    
     func apiRequest<Response: APIResponseProtocol>(_ request: APIRequestProtocol, withSuccess success: @escaping apiSuccess<Response>, WithApiFailure failure: @escaping apiFailure) {
         guard let path = Bundle.main.path(forResource: request.endpoint, ofType: "txt") else {
             failure(NSError(domain: "invalid file", code: 500, userInfo: nil))
