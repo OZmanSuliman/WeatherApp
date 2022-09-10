@@ -36,6 +36,10 @@ this part is being done by the
 For a bettter UX, the app using MapKit to provide the search engine with suggestions for cities and deliver a smooth auto-complete.
 
 
+#### CI/CD
+using fastlane and Github Actions, pipeline runs on one of the 3 environments depending on the destination branch.
+
+
 ## Todo
 #### Background Process
 Background service is implemented partly.
