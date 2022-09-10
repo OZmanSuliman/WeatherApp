@@ -72,6 +72,9 @@ currently there is not much in the unit test, but the app is developed in a a ge
 #### View Reduction
 There is a small part of the code exict in the View Layers, by moving this to the presenters the code will be structed better.
 
-
 #### Design Pattrens
 Add factory pattern to manage the services, which will make the code cleaner and more readable
+
+#### repository Licences 
+- disable pushing directly to master, dev and release branches.
+- enable minimum PR approving to compelete a PR.
