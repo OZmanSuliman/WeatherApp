@@ -5,29 +5,63 @@
 //  Created by Osman Ahmed on 07/09/2022.
 //
 
-import XCTest
+import RealmSwift
 @testable import WeatherApp
+import XCTest
 
 class WeatherAppTests: XCTestCase {
+    var apiManager: ApiManager!
+    var environmentManager: EnvironmentManager!
+    var weatherListPresenter: WeatherListPresenterProtocol!
+    var weatherListInteractor: WeatherListInteractor!
+    var settingPresenter: SettingPresenterProtocol!
+    var settingInteractor: SettingsInteractorProtocol!
+    var detailScreenPresenter: DetailScreenPresenterProtocol!
+    var detailsInteractor: DetailsInteractorProtocol!
+    var store: AppState!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        weatherListPresenter = WeatherListPresenter()
+        settingInteractor = SettingsInteractor()
+        settingPresenter = SettingPresenter()
+        detailScreenPresenter = DetailScreenPresenter()
+        detailsInteractor = DetailsInteractor()
+        apiManager = ApiManager()
+        store = AppState.shared
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        environmentManager = nil
+        apiManager = nil
+        weatherListInteractor = nil
+        weatherListPresenter = nil
+        settingInteractor = nil
+        settingPresenter = nil
+        detailScreenPresenter = nil
+        detailsInteractor = nil
+        store = AppState()
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func test_interactor() {
+        let expectation = self.expectation(description: "interactor")
+        XCTAssertNotNil(store.state)
+        weatherListInteractor.fetchWeather {
+            expectation.fulfill()
         }
+        waitForExpectations(timeout: 9, handler: nil)
+        XCTAssertNotEqual(store.state, WeatherStateEnum.loading)
     }
 
+    func test_Presenter_faild() {
+        store.state = .idle
+        weatherListPresenter.WeatherListFaild(error: "error")
+        XCTAssertEqual(store.state, WeatherStateEnum.failed("error"))
+    }
+
+    func test_temp() {
+        store.unit = 0
+        XCTAssertNotNil(weatherListPresenter.temp(temp: "21"))
+        store.unit = 1
+        XCTAssertNotNil(weatherListPresenter.temp(temp: "21"))
+    }
 }
