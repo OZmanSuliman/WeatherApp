@@ -37,21 +37,21 @@ For a bettter UX, the app using MapKit to provide the search engine with suggest
 
 
 ## Todo
-####Background Process
+#### Background Process
 Background service is implemented partly.
 the idea of it is to provide a feature that keep user updated whenever there is any change in the weather.
 this has not been completed due to the time shortage and missing Apple Developer Account.
 
-####Local Notification
+#### Local Notification
 This is works alonge with the background process to notify user whenever there is any update.
 it is not been tested yet du to the time shortage.
 
-####UnitTest
+#### UnitTest
 currently there is not much in the unit test, but the app is developed in a a generic way which makes its testablity high.
 
-####View Reduction
+#### View Reduction
 There is a small part of the code exict in the View Layers, by moving this to the presenters the code will be structed better.
 
 
-####Design Pattrens
+#### Design Pattrens
 Add factory pattern to manage the services, which will make the code cleaner and more readable
